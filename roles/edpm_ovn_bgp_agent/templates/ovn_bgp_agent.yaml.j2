@@ -1,10 +1,11 @@
 start_order: 0
 image: "{{ edpm_ovn_bgp_agent_image }}"
 net: host
-pid: host
-cgroupns: host
-restart: always
 privileged: true
+user: root
+restart: always
+depends_on:
+  - openvswitch.service
 volumes:
   {% set edpm_ovn_bgp_agent_volumes = [] %}
   {%- set edpm_ovn_bgp_agent_volumes =

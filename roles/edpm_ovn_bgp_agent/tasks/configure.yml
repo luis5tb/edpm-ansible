@@ -14,6 +14,16 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+- name: Ensure the Openvswitch package is installed
+  ansible.builtin.package:
+    name: openvswitch
+    state: present
+
+- name: Ensure the OVS service is running
+  ansible.builtin.systemd:
+    name: openvswitch
+    state: started
+
 - name: Configure OVN BGP agent
   ansible.builtin.template:
     src: ovn-bgp-agent.conf.j2
@@ -22,6 +32,10 @@
     selevel: s0
     setype: container_file_t
   register: _ovn_bgp_agent_config_result
+
+- name: Configure OVS external_ids
+  ansible.builtin.shell: >
+    ovs-vsctl set open . {% for key, value in edpm_ovn_bgp_agent_ovn_ovs_external_ids.items() %} external_ids:{{ key }}={{ value }} {% endfor %}
 
 - name: Add OVS Manager
   block:

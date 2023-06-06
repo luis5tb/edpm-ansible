@@ -11,7 +11,7 @@ edpm_ovn_config_src: /var/lib/openstack/configs/ovn
 edpm_ovn_neutron_metadata_agent_config_dir: /var/lib/config-data/ansible-generated/neutron-ovn-metadata-agent
 edpm_ovn_metadata_agent_log_dir: "/var/log/neutron"
 edpm_ovn_bridge: br-int
-edpm_ovn_bridge_mappings: ["datacentre:br-ex"]
+edpm_ovn_bridge_mappings: ["bgp:br-provider"]
 
 edpm_ovn_chassis_mac_first_octets: ["0e", "1e", "2e", "3e"]
 # Automatically generate the first two octets for the MAC address pefixes.

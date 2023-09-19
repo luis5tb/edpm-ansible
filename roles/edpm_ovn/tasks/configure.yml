@@ -91,6 +91,7 @@
       with_items:
       - {"src": "rootwrap.conf.j2", "dest": "01-rootwrap.conf"}
       - {"src": "neutron-ovn-metadata-agent.conf.j2", "dest": "01-neutron-ovn-metadata-agent.conf"}
+      when: edpm_ovn_metadata_agent_enabled
 
     - name: discover secrets in {{ edpm_ovn_config_src }}
       ansible.builtin.find:
@@ -102,6 +103,7 @@
       register: edpm_neutron_metadata_secrets
       delegate_to: localhost
       become: false
+      when: edpm_ovn_metadata_agent_enabled
 
     - name: flatten secrets into {{ edpm_ovn_neutron_metadata_agent_config_dir }}
       ansible.builtin.copy:
@@ -110,3 +112,4 @@
         setype: "container_file_t"
         mode: "0644"
       with_items: "{{ edpm_neutron_metadata_secrets.files }}"
+      when: edpm_ovn_metadata_agent_enabled

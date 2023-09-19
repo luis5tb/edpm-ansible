@@ -28,6 +28,7 @@
       ovn_metadata_agent: "{{ lookup('template', 'ovn_metadata_agent.yaml.j2') | from_yaml }}"
     edpm_container_standalone_kolla_config_files:
       ovn_metadata_agent: "{{ lookup('template', 'kolla_ovn_metadata_agent.yaml.j2') | from_yaml }}"
+  when: edpm_ovn_metadata_agent_enabled
 
 - name: Run ovn_controller container
   ansible.builtin.include_role:

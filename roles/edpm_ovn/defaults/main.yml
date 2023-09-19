@@ -91,6 +91,7 @@ edpm_ovn_ovs_other_config:
 
 # Neutron conf
 # DEFAULT
+edpm_ovn_metadata_agent_enabled: true
 edpm_ovn_metadata_agent_DEFAULT_debug: false
 edpm_ovn_metadata_agent_DEFAULT_log_dir: '/var/log/neutron'
 edpm_ovn_metadata_agent_DEFAULT_host: '{{ ansible_facts["nodename"] }}' # also in missing vars

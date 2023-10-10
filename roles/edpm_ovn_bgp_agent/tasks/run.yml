@@ -19,46 +19,6 @@
     name: edpm_container_manage
     tasks_from: shutdown.yml
 
-- name: Run NB DB container
-  ansible.builtin.include_role:
-    name: edpm_container_standalone
-  vars:
-    edpm_container_standalone_service: nb_db_server
-    edpm_container_standalone_container_defs:
-      nb_db_server: "{{ lookup('template', 'nb_db_server.yaml.j2') | from_yaml }}"
-    edpm_container_standalone_kolla_config_files:
-      nb_db_server: "{{ lookup('template', 'templates/kolla_config/nb_db_server.yaml.j2') | from_yaml }}"
-
-- name: Run SB DB container
-  ansible.builtin.include_role:
-    name: edpm_container_standalone
-  vars:
-    edpm_container_standalone_service: sb_db_server
-    edpm_container_standalone_container_defs:
-      sb_db_server: "{{ lookup('template', 'sb_db_server.yaml.j2') | from_yaml }}"
-    edpm_container_standalone_kolla_config_files:
-      sb_db_server: "{{ lookup('template', 'templates/kolla_config/sb_db_server.yaml.j2') | from_yaml }}"
-
-- name: Run northd container
-  ansible.builtin.include_role:
-    name: edpm_container_standalone
-  vars:
-    edpm_container_standalone_service: northd
-    edpm_container_standalone_container_defs:
-      northd: "{{ lookup('template', 'northd.yaml.j2') | from_yaml }}"
-    edpm_container_standalone_kolla_config_files:
-      northd: "{{ lookup('template', 'templates/kolla_config/northd.yaml.j2') | from_yaml }}"
-
-- name: Run ovn_controller container
-  ansible.builtin.include_role:
-    name: edpm_container_standalone
-  vars:
-    edpm_container_standalone_service: bgp_ovn_controller
-    edpm_container_standalone_container_defs:
-      bgp_ovn_controller: "{{ lookup('template', 'bgp_ovn_controller.yaml.j2') | from_yaml }}"
-    edpm_container_standalone_kolla_config_files:
-      bgp_ovn_controller: "{{ lookup('template', 'templates/kolla_config/bgp_ovn_controller.yaml.j2') | from_yaml }}"
-
 - name: Run ovn_bgp_agent container
   ansible.builtin.include_role:
     name: edpm_container_standalone
